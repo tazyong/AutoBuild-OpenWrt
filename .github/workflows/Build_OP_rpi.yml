@@ -74,7 +74,8 @@ jobs:
       - name: Import external feeds - JerryKuKu Argon
         working-directory: ./openwrt
         run: |
-          git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git package/luci-theme-argon-jerrykuku
+          rm -rf package/lean/luci-theme-argon
+          git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git package/lean/luci-theme-argon
 
       - name: Configuration Customization - Build_rpi
         env:
@@ -82,7 +83,7 @@ jobs:
         run: |
           [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
           chmod +x ./customize.sh && ./customize.sh
-          cd openwrt && make defconfig
+          cd openwrt && make defconfig #choose LUCI->Theme->Luci-theme-argon
 
       - name: Download package
         working-directory: ./openwrt
